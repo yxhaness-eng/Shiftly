@@ -1,0 +1,537 @@
+:root {
+            --bg-page: #fff5f8;
+            --bg-gradient: linear-gradient(160deg, #fff5f8 0%, #fde8ef 100%);
+            --card-bg: #ffffff;
+            --pink-50: #fff0f5;
+            --pink-100: #ffe0eb;
+            --pink-200: #ffc2d9;
+            --pink-300: #ff9ec2;
+            --pink-400: #ff7aa8;
+            --pink-500: #ff5c93;
+            --pink-600: #e63e76;
+            --shift-gradient: linear-gradient(145deg, #ff7aa8 0%, #ff528b 100%);
+            --text-main: #4a2033;
+            --text-muted: #9c6b80;
+            --border-color: #f8d5e3;
+            --shadow-card: 0 10px 30px -6px rgba(230, 62, 118, 0.09), 0 4px 12px -2px rgba(230, 62, 118, 0.05);
+            --shadow-shift: 0 6px 14px -3px rgba(255, 82, 139, 0.42);
+            --radius-card: 24px;
+            --radius-cell: 16px;
+            --radius-btn: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'SF Pro Rounded', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            min-height: 100vh;
+            min-height: 100dvh;
+            -webkit-font-smoothing: antialiased;
+            overscroll-behavior-y: none;
+        }
+
+        body {
+            padding-top: max(14px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            padding-left: max(12px, env(safe-area-inset-left));
+            padding-right: max(12px, env(safe-area-inset-right));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Главный адаптивный контейнер: от 100% на телефоне (430px) до удобной сетки на ПК */
+        .app-shell {
+            width: 100%;
+            max-width: 480px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        @media (min-width: 860px) {
+            body {
+                padding-top: 32px;
+                padding-bottom: 40px;
+            }
+            .app-shell {
+                max-width: 920px;
+                display: grid;
+                grid-template-columns: 1.35fr 1fr;
+                gap: 24px;
+                align-items: start;
+            }
+        }
+
+        /* Карточки */
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-card);
+            padding: clamp(14px, 3.8vw, 24px);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(255, 194, 217, 0.55);
+        }
+
+        /* Верхняя шапка */
+        .header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .app-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: var(--shift-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            box-shadow: 0 4px 10px rgba(255, 82, 139, 0.3);
+            flex-shrink: 0;
+        }
+
+        .app-title h1 {
+            font-size: clamp(1.1rem, 4vw, 1.3rem);
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .app-title span {
+            display: block;
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* Переключатель месяцев */
+        .month-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            background: var(--pink-50);
+            padding: 5px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 12px;
+        }
+
+        .nav-arrow {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            border: none;
+            background: var(--card-bg);
+            color: var(--pink-600);
+            font-size: 1.35rem;
+            font-weight: 900;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(230, 62, 118, 0.08);
+            touch-action: manipulation;
+            transition: transform 0.12s ease, background 0.15s ease;
+        }
+
+        .nav-arrow:active {
+            transform: scale(0.92);
+            background: var(--pink-100);
+        }
+
+        .month-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .month-label {
+            font-size: clamp(1.05rem, 3.8vw, 1.2rem);
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1.2;
+        }
+
+        .today-jump {
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--pink-600);
+            opacity: 0.9;
+        }
+
+        /* Дни недели */
+        .weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: clamp(5px, 1.5vw, 8px);
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .weekday {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 4px 0;
+        }
+
+        .weekday.weekend {
+            color: var(--pink-500);
+        }
+
+        /* Сетка календаря */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: clamp(5px, 1.5vw, 8px);
+            user-select: none;
+            touch-action: pan-y;
+        }
+
+        /* Ячейка дня: оптимизирована под касание пальцем на 430px экране */
+        .day-cell {
+            position: relative;
+            min-height: clamp(54px, 12.8vw, 68px);
+            border-radius: var(--radius-cell);
+            background: var(--pink-50);
+            border: 1.5px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: transform 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        @media (min-width: 860px) {
+            .day-cell {
+                min-height: 68px;
+            }
+        }
+
+        .day-cell:active:not(.empty) {
+            transform: scale(0.92);
+        }
+
+        .day-cell.empty {
+            background: transparent;
+            border-color: transparent;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .day-number {
+            font-size: clamp(0.98rem, 3.6vw, 1.1rem);
+            font-weight: 900;
+            line-height: 1;
+            color: var(--text-main);
+        }
+
+        .day-status {
+            font-size: 0.64rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            line-height: 1;
+            letter-spacing: -0.01em;
+        }
+
+        /* Активное состояние: Рабочая смена (1 клик) */
+        .day-cell.is-shift {
+            background: var(--shift-gradient);
+            border-color: var(--pink-600);
+            box-shadow: var(--shadow-shift);
+        }
+
+        .day-cell.is-shift .day-number,
+        .day-cell.is-shift .day-status {
+            color: #ffffff;
+        }
+
+        /* Выделение сегодняшнего дня */
+        .day-cell.is-today {
+            box-shadow: 0 0 0 2.5px var(--pink-500);
+        }
+
+        .day-cell.is-shift.is-today {
+            box-shadow: 0 0 0 2.5px var(--text-main), var(--shadow-shift);
+        }
+
+        /* Нижняя строка под календарем */
+        .calendar-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 10px;
+            border-top: 1px solid var(--pink-100);
+            flex-wrap: wrap;
+        }
+
+        .legend {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            color: var(--text-muted);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        .legend-dot.shift {
+            background: var(--shift-gradient);
+        }
+
+        .legend-dot.off {
+            background: var(--pink-50);
+            border: 1.5px solid var(--border-color);
+        }
+
+        /* Правая / нижняя панель: Статистика, доход и экспорт */
+        .side-column {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Сводка в 3 аккуратные плитки */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .stat-pill {
+            background: var(--pink-50);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 10px 8px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2px;
+        }
+
+        .stat-pill.primary {
+            background: var(--shift-gradient);
+            border-color: transparent;
+            color: #ffffff;
+            box-shadow: var(--shadow-shift);
+        }
+
+        .stat-val {
+            font-size: clamp(1.15rem, 4.2vw, 1.4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stat-lbl {
+            font-size: 0.7rem;
+            font-weight: 800;
+            opacity: 0.9;
+        }
+
+        /* Поле ставки за смену (font-size: 16px против авто-зума iOS Safari) */
+        .rate-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            background: var(--pink-50);
+            border: 1px solid var(--border-color);
+            padding: 8px 12px;
+            border-radius: 16px;
+        }
+
+        .rate-bar label {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+
+        .rate-input {
+            width: 120px;
+            padding: 7px 10px;
+            border-radius: 10px;
+            border: 1.5px solid var(--pink-200);
+            background: #ffffff;
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 16px; /* Важно для iPhone: >=16px отключает авто-зум */
+            font-weight: 800;
+            text-align: right;
+            outline: none;
+            transition: border-color 0.15s ease;
+        }
+
+        .rate-input:focus {
+            border-color: var(--pink-500);
+        }
+
+        /* Кнопки управления */
+        .btn {
+            font-family: inherit;
+            font-size: 0.84rem;
+            font-weight: 800;
+            padding: 10px 14px;
+            border-radius: var(--radius-btn);
+            border: 1px solid transparent;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            touch-action: manipulation;
+            user-select: none;
+            transition: transform 0.12s ease, background 0.15s ease;
+        }
+
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-soft {
+            background: var(--pink-100);
+            color: var(--pink-600);
+        }
+
+        .btn-outline {
+            background: #ffffff;
+            color: var(--text-main);
+            border-color: var(--border-color);
+        }
+
+        .btn-danger {
+            background: #fff0f3;
+            color: #e11d48;
+            border-color: #fecdd3;
+        }
+
+        .btn-primary {
+            background: var(--shift-gradient);
+            color: #ffffff;
+            box-shadow: var(--shadow-shift);
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        /* Всплывающее окно подтверждения очистки */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(74, 32, 51, 0.38);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            z-index: 100;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #ffffff;
+            width: 100%;
+            max-width: 340px;
+            border-radius: 22px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(74, 32, 51, 0.2);
+            border: 1px solid var(--pink-200);
+            text-align: center;
+        }
+
+        .modal-box h3 {
+            font-size: 1.08rem;
+            font-weight: 900;
+            margin-bottom: 6px;
+        }
+
+        .modal-box p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        /* Уведомление */
+        .toast {
+            position: fixed;
+            bottom: max(20px, env(safe-area-inset-bottom));
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: rgba(74, 32, 51, 0.92);
+            color: #ffffff;
+            padding: 10px 18px;
+            border-radius: 99px;
+            font-size: 0.84rem;
+            font-weight: 800;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 200;
+            white-space: nowrap;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
